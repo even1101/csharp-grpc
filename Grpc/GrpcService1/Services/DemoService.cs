@@ -18,4 +18,16 @@ public class DemoService : Demo.DemoBase
             Message = "Demo " + request.Name
         });
     }
+
+    public override async Task DemoManyTimes(DemoManyTimeRequest request, IServerStreamWriter<DemoManyTimeResponse> responseStream, ServerCallContext context)
+    {
+        var res = String.Format("demo hi {0}", request.DemoReq.Name);
+        foreach (var i in Enumerable.Range(1, 10))
+        {
+            await responseStream.WriteAsync(new DemoManyTimeResponse
+            {
+                Result = i.ToString()
+            });
+        }
+    }
 }
