@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcService1";
+
+package demo;
+
+service Demo {
+  rpc SayDemo (DemoRequest) returns (DemoResponse);
+}
+
+message DemoRequest {
+  string name = 1;
+}
+
+message DemoResponse {
+  string message = 1;
+}
