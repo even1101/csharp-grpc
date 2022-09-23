@@ -44,4 +44,15 @@ public class DemoService : Demo.DemoBase
             Result = result
         };
     }
+
+    public override async Task DemoEveryOne(IAsyncStreamReader<DemoEveryOneRequest> requestStream, IServerStreamWriter<DemoEveryOneResponse> responseStream, ServerCallContext context)
+    {
+        while (await requestStream.MoveNext())
+        {
+            var result = $"Hi {requestStream.Current.DemoReq.Name}";
+            Console.WriteLine("Received:" + result);
+            await responseStream.WriteAsync(new DemoEveryOneResponse { Result = result });
+        }
+
+    }
 }

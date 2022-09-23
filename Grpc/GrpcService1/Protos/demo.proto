@@ -10,8 +10,17 @@ service Demo {
   rpc DemoManyTimes(DemoManyTimeRequest) returns(stream DemoManyTimeResponse);
   // client stream
   rpc LongDemo (stream LongDemoRequest) returns(LongDemoResponse);
+  // bidi stream
+  rpc DemoEveryOne(stream DemoEveryOneRequest) returns(stream DemoEveryOneResponse);
 }
 
+message DemoEveryOneRequest {
+    DemoRequest demoReq = 1;
+}
+
+message DemoEveryOneResponse {
+    string result = 1;
+}
 message LongDemoRequest {
     DemoRequest demoReq = 1;
 }
