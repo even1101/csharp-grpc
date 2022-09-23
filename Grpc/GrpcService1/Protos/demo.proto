@@ -6,7 +6,18 @@ package demo;
 
 service Demo {
   rpc SayDemo (DemoRequest) returns (DemoResponse);
+  // server stream
   rpc DemoManyTimes(DemoManyTimeRequest) returns(stream DemoManyTimeResponse);
+  // client stream
+  rpc LongDemo (stream LongDemoRequest) returns(LongDemoResponse);
+}
+
+message LongDemoRequest {
+    DemoRequest demoReq = 1;
+}
+
+message LongDemoResponse {
+    string result = 1;
 }
 
 message DemoManyTimeRequest {

@@ -30,4 +30,18 @@ public class DemoService : Demo.DemoBase
             });
         }
     }
+
+    public override async Task<LongDemoResponse> LongDemo(IAsyncStreamReader<LongDemoRequest> requestStream, ServerCallContext context)
+    {
+        string result = "";
+        while (await requestStream.MoveNext())
+        {
+            result += $"Hello {requestStream.Current.DemoReq.Name}";
+        }
+
+        return new LongDemoResponse()
+        {
+            Result = result
+        };
+    }
 }
